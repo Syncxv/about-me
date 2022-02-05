@@ -2,6 +2,7 @@
     "name": "about-me",
     "version": "1.0.0",
     "scripts": {
+        "build": "parcel build src/index.html",
         "dev": "parcel src/index.html"
     },
     "license": "MIT",
