@@ -70,3 +70,33 @@ main {
         }
     }
 }
+
+@media (max-width: 40em) {
+    body {
+        position: fixed;
+    }
+    main {
+        width: 100%;
+        height: 100%;
+    }
+    .container {
+        grid-template-columns: auto;
+        .avatar {
+            width: 50%;
+            justify-self: center;
+        }
+        .contents {
+            flex-direction: column;
+            .about-me {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+            .list {
+                height: auto;
+            }
+        }
+    }
+}
