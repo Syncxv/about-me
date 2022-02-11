@@ -7,6 +7,7 @@ main {
     left: 50%; /* position the left edge of the element at the middle of the parent */
     transform: translate(-50%, -50%);
     width: 75%;
+    perspective: 800px;
 }
 
 #canvas {
@@ -22,7 +23,7 @@ main {
     padding: 3rem 0.5rem;
     background: rgba(171, 0, 255, 0.11);
     border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 30px rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(171, 0, 255, 0.11);
     .info {

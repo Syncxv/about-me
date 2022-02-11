@@ -1,11 +1,11 @@
 console.log("hey");
-const canvas: HTMLCanvasElement = document.querySelector("#canvas");
-const container: HTMLDivElement = document.querySelector(".container");
-const ctx = canvas.getContext("2d");
+const canvas: HTMLCanvasElement = document.querySelector("#canvas")!;
+const container: HTMLDivElement = document.querySelector(".container")!;
+const ctx = canvas.getContext("2d")!;
 const SIZE = 5;
-const moveForce = 30; // max popup movement in pixels
-const rotateForce = 20; // max popup rotation in deg
-let particleArr = [];
+const moveForce = 10; // max popup movement in pixels
+const rotateForce = 5; // max popup rotation in deg
+let particleArr: Particle[] = [];
 
 const redraw = () => {
     ctx.globalAlpha = 0.3;
@@ -23,7 +23,7 @@ canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
 console.log(ctx);
 
-const mouse = {
+const mouse: { x: number | undefined; y: number | undefined } = {
     x: undefined,
     y: undefined,
 };
@@ -51,12 +51,13 @@ class Particle {
     public speedX: number;
     public speedY: number;
     constructor(_size: number, hehe?: number) {
-        this.x = mouse.x + Math.random() * 30;
-        this.y = mouse.y + Math.random() * 30;
+        hehe = hehe || 1;
+        this.x = (mouse.x as number) + Math.random() * 30;
+        this.y = (mouse.y as number) + Math.random() * 30;
         this.size = _size ?? Math.random() * 3 + 1.5;
         this.opaicty = 0.5;
         this.speedX = Math.random() * 10;
-        this.speedY = Math.random() * 1 * hehe ?? 1;
+        this.speedY = Math.random() * 1 * hehe;
         // this.velocity = window.angle ? Math.cos(window.angle) : Math.random() * 3.5;
     }
     update() {
