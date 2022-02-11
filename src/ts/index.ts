@@ -1,10 +1,14 @@
 console.log("hey");
 const canvas: HTMLCanvasElement = document.querySelector("#canvas");
+const container: HTMLDivElement = document.querySelector(".container");
 const ctx = canvas.getContext("2d");
 const SIZE = 5;
+const moveForce = 30; // max popup movement in pixels
+const rotateForce = 20; // max popup rotation in deg
 let particleArr = [];
 
 const redraw = () => {
+    ctx.globalAlpha = 0.3;
     ctx.fillStyle = "rgb(0,0,0, 0.4)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 };
@@ -26,21 +30,33 @@ const mouse = {
 addEventListener("mousemove", (e) => {
     mouse.x = e.x;
     mouse.y = e.y;
+    var docX = window.innerWidth;
+    var docY = window.innerHeight;
+
+    var moveX = ((e.pageX - docX / 2) / (docX / 2)) * -moveForce;
+    var moveY = ((e.pageY - docY / 2) / (docY / 2)) * -moveForce;
+
+    var rotateY = (e.pageX / docX) * rotateForce * 2 - rotateForce;
+    var rotateX = -((e.pageY / docY) * rotateForce * 2 - rotateForce);
+    container.style.left = `${moveX}px`;
+    container.style.top = `${moveY}px`;
+    container.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    (window as any).docY = docY;
 });
 class Particle {
-    x: number;
-    y: number;
-    size: number;
-    opaicty: number;
-    speedX: number;
-    speedY: number;
-    constructor(size: number, hehe?: number) {
+    public x: number;
+    public y: number;
+    public size: number;
+    public opaicty: number;
+    public speedX: number;
+    public speedY: number;
+    constructor(_size: number, hehe?: number) {
         this.x = mouse.x + Math.random() * 30;
         this.y = mouse.y + Math.random() * 30;
-        this.size = size || Math.random() * 3 + 1.5;
+        this.size = _size ?? Math.random() * 3 + 1.5;
         this.opaicty = 0.5;
         this.speedX = Math.random() * 10;
-        this.speedY = Math.random() * 1 * hehe || 1;
+        this.speedY = Math.random() * 1 * hehe ?? 1;
         // this.velocity = window.angle ? Math.cos(window.angle) : Math.random() * 3.5;
     }
     update() {
@@ -64,7 +80,6 @@ const animate = () => {
         particle.draw();
         if (particle.opaicty <= 0 || particle.size <= 0) particleArr.splice(i, 1);
     });
-    console.log(particleArr.length);
 
     particleArr.push(new Particle(SIZE));
     requestAnimationFrame(animate);
