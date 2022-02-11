@@ -3,8 +3,8 @@ const canvas: HTMLCanvasElement = document.querySelector("#canvas")!;
 const container: HTMLDivElement = document.querySelector(".container")!;
 const ctx = canvas.getContext("2d")!;
 const SIZE = 5;
-const moveForce = 10; // max popup movement in pixels
-const rotateForce = 5; // max popup rotation in deg
+const moveForce = 3; // max popup movement in pixels
+const rotateForce = 3; // max popup rotation in deg
 let particleArr: Particle[] = [];
 
 const redraw = () => {
