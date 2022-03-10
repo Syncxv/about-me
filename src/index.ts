@@ -2,14 +2,16 @@ console.log("hey");
 const canvas: HTMLCanvasElement = document.querySelector("#canvas")!;
 const container: HTMLDivElement = document.querySelector(".container")!;
 const ctx = canvas.getContext("2d")!;
-const SIZE = 5;
+const SIZE = 2;
+const SPEED_X = 25;
+const SPEED_Y = 1;
 const moveForce = 3; // max popup movement in pixels
 const rotateForce = 3; // max popup rotation in deg
 let particleArr: Particle[] = [];
 
 const redraw = () => {
-    ctx.globalAlpha = 0.3;
-    ctx.fillStyle = "rgb(0,0,0, 0.4)";
+    ctx.globalAlpha = 0.5;
+    ctx.fillStyle = "rgb(0,0,0, 0.6)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 };
 
@@ -43,6 +45,11 @@ addEventListener("mousemove", (e) => {
     container.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     (window as any).docY = docY;
 });
+addEventListener("click", () => {
+    for (let i = 0; i < 25; ++i) {
+        particleArr.push(new Particle(SIZE));
+    }
+});
 class Particle {
     public x: number;
     public y: number;
@@ -56,8 +63,8 @@ class Particle {
         this.y = (mouse.y as number) + Math.random() * 30;
         this.size = _size ?? Math.random() * 3 + 1.5;
         this.opaicty = 0.5;
-        this.speedX = Math.random() * 10;
-        this.speedY = Math.random() * 1 * hehe;
+        this.speedX = Math.random() * SPEED_Y;
+        this.speedY = Math.random() * SPEED_X * hehe;
         // this.velocity = window.angle ? Math.cos(window.angle) : Math.random() * 3.5;
     }
     update() {
@@ -73,7 +80,7 @@ class Particle {
         ctx.fill();
     }
 }
-
+let f = 0;
 const animate = () => {
     redraw();
     particleArr.forEach((particle, i) => {
@@ -81,8 +88,8 @@ const animate = () => {
         particle.draw();
         if (particle.opaicty <= 0 || particle.size <= 0) particleArr.splice(i, 1);
     });
-
-    particleArr.push(new Particle(SIZE));
+    if (f % 2 === 0) particleArr.push(new Particle(SIZE));
+    f++;
     requestAnimationFrame(animate);
 };
 animate();
