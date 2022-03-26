@@ -1,5 +1,5 @@
 import Cursor from "./cursor";
-
+import gsap from "gsap";
 new Cursor({
     container: "body",
     className: "pt-cursor",
@@ -18,3 +18,19 @@ new Cursor({
     visible: true,
     hideOnLeave: true,
 });
+
+const timeline = gsap.timeline({ defaults: { duration: 2 } });
+timeline
+    .from(".container", {
+        y: 40,
+        opacity: 0,
+        stagger: 0.15,
+        ease: "expo.out",
+    })
+    .from(".info", {
+        y: 40,
+        opacity: 0,
+        // stagger: 0.15,
+        ease: "expo.out",
+        delay: 0.2,
+    });
