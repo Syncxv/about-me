@@ -20,17 +20,9 @@ new Cursor({
 });
 
 const timeline = gsap.timeline({ defaults: { duration: 2 } });
-timeline
-    .from(".container", {
-        y: 40,
-        opacity: 0,
-        stagger: 0.15,
-        ease: "expo.out",
-    })
-    .from(".info", {
-        y: 40,
-        opacity: 0,
-        // stagger: 0.15,
-        ease: "expo.out",
-        delay: 0.2,
-    });
+timeline.from(".container", {
+    y: 40,
+    opacity: 0,
+    stagger: 0.15,
+    ease: "expo.out",
+});
